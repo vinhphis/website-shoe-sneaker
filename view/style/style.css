@@ -1,0 +1,1183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.up_header{
+    right: 50px;
+    bottom: 5%;
+    position: fixed;
+}
+.up_header button{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    border: 1px solid ghostwhite;
+    background-color: transparent;
+    border-radius: 100%;
+}
+.up_header i{
+    font-size: 40px;
+    
+}
+input[type="radio"] {
+    cursor: pointer;
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(232, 232, 232);
+    z-index: 9999;
+    transition: 1s linear;
+
+}
+
+.loading-spinner {
+    /* border-top: 5px solid #000000; */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    animation: spin 1.5s infinite;
+    transition: 1s ease-in-out;
+}
+
+@keyframes spin {
+
+    0% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* @keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #767676;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+} */
+
+/* CSS cho modal */
+.modal {
+    display: none;
+    /* Ẩn modal mặc định */
+    position: fixed;
+    /* Hiển thị modal trên cùng */
+    z-index: 5;
+    /* Đặt modal trên tất cả các phần tử khác */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Cho phép cuộn nếu nội dung quá dài */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Màu nền mờ */
+}
+
+.close {
+    float: right;
+    height: 20px;
+    width: 20px;
+    border: 1px solid gray;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.modal-content-color-size {
+    display: flex;
+    margin: 20px 0px;
+}
+
+.modal-content-color-size span {
+    width: 50%;
+}
+
+.modal-content-color-size span select {
+    width: 90%;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* .modal-content-soluong {
+    border: 1px solid;
+} */
+
+/* .modal-content-soluong button {
+    width: 20px;
+
+} */
+
+.modal-content-soluong input {
+    width: 50px;
+    height: 30px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10vh auto 0px auto;
+    /* Canh giữa modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 45%;
+    height: 600px;
+    display: grid;
+    overflow-y: auto;
+    overflow-x: hidden;
+    grid-template-columns: 50% 50%;
+    gap: 10px;
+    transition: 1s ease-in-out;
+}
+
+.modal-content input[type="submit"] {
+    width: 200px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid gray;
+    margin: 20px 0px;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+}
+
+.modal-content input[type="submit"]:hover {
+    background-color: red;
+    color: white;
+    transition: 0.5s ease-in-out;
+}
+
+.modal-content-image {
+    /* border: 1px solid; */
+    text-align: center;
+}
+
+.modal-content-image picture img {
+    width: 100%;
+    box-shadow:
+        0 4px 5px 0 rgba(0, 0, 0, 0.2),
+        0 8px 5px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 10px;
+}
+
+.modal-content-image section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+    height: 80px;
+    gap: 5px;
+}
+
+.modal-content-image section img {
+    width: 100%;
+    box-shadow:
+        0 4px 5px 0 rgba(0, 0, 0, 0.2),
+        0 8px 5px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+/* end css modal */
+.ctsp-soluong input[type="number"]::-webkit-inner-spin-button,
+.ctsp-soluong input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+body {
+    overflow-x: hidden;
+}
+
+.top_header {
+    height: 40px;
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top_header_menu ul {
+    display: flex;
+    flex-direction: row;
+    margin-right: 100px;
+}
+
+.checkpayments:focus-within {
+    display: block;
+}
+
+.top_header_menu>ul>li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+    border-right: 2px solid;
+    /* margin: 0px 10px; */
+}
+
+.top_header_menu ul li:last-child {
+    border: none;
+}
+
+.top_header_menu ul li a {
+    color: black;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.top_header_menu ul li a:hover {
+    color: rgb(106, 106, 106);
+}
+
+.bottom_header {
+    height: 80px;
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    background-color: white;
+}
+
+.bottom_header .bottom_header_logo {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.bottom_header_logo a {
+    height: 80px;
+    cursor: pointer;
+}
+
+.bottom_header_logo a img {
+    height: 90%;
+    cursor: pointer;
+}
+
+.menu_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu_header>ul {
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+}
+
+.menu_header>ul>li>a {
+    font-weight: 600;
+    margin: 0px 10px;
+    padding-bottom: 30px;
+    border: 2px solid transparent;
+}
+
+
+.menu_header>ul>li>a:hover {
+    border-bottom-color: black;
+}
+
+.menu_header>ul>li>a {
+    color: black;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+/* css drop menu */
+.drop_menu_header {
+    position: absolute;
+    margin-top: -95px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    border-bottom: 0.1px solid gray;
+    z-index: 2;
+}
+
+.drop_menu_header_child {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 300px;
+
+}
+
+.drop_menu_header .drop_menu_header_child>li {
+    height: 50px;
+    animation: 0.7s linear hienthi;
+}
+
+.menu_header>ul>li:hover .drop_menu_header {
+    display: block;
+}
+
+.drop_menu_header_child a {
+    color: black;
+
+}
+
+@keyframes hienthi {
+    0% {
+        opacity: 0;
+
+    }
+
+    25% {
+        opacity: 0.2;
+
+    }
+
+    50% {
+        opacity: 0.5;
+
+    }
+
+    75% {
+        opacity: 0.7;
+
+    }
+
+    100% {
+        opacity: 1;
+
+    }
+
+}
+
+/* css icon tìm kiếm, trái tym, giỏ hàng */
+.search_header {
+    display: flex;
+    align-items: center;
+}
+
+.search_header form {
+    position: relative;
+}
+
+.search_header form input {
+    height: 40px;
+    padding-left: 40px;
+    border-radius: 20px;
+    background-color: rgb(242, 242, 242);
+    border: 2px solid transparent;
+}
+
+.fa-magnifying-glass {
+    position: absolute;
+    right: 170px;
+    top: 10px;
+}
+
+.search_header i {
+    padding: 10px 13px;
+    color: black;
+}
+
+.banner_child {
+    height: 80px;
+    background-color: rgb(241, 241, 241);
+    margin-top: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+#top_text {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+#bottom_text {
+    font-size: 15px;
+
+}
+
+/* css tin tức */
+.tintuc {
+    width: 70%;
+    margin: auto;
+}
+
+.tintuc table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tintuc table tr {
+    width: 100%;
+    margin: 20px 0px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.tintuc td:first-child {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tintuc td:first-child img {
+    width: 70%;
+    object-fit: cover;
+}
+
+.tintuc td:last-child {
+    width: 100%;
+    /* display: grid;
+    grid-template-rows: 30% 10% 60%; */
+}
+
+.tintuc td:last-child .title_tintuc {
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.tintuc td:last-child .date_tintuc {
+    font-size: 15px;
+    color: rgb(196, 196, 196);
+}
+
+.tintuc td:last-child .content_tintuc {
+    font-size: 20px;
+
+}
+
+.tintuc a {
+    color: black;
+}
+
+/*  */
+.tintuc_detail {
+    margin: 50px auto;
+    width: 80%;
+    /* border: 1px solid; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+}
+
+.tintuc_detail li {
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tintuc_detail input {
+    width: 100px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    border: 1px solid red;
+    cursor: pointer;
+}
+
+/* giỏ hàng */
+.giohang {
+    position: relative;
+}
+
+.giohang span {
+    position: absolute;
+    right: 10%;
+    top: -15%;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 100%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* css help  */
+.help {
+    width: 80%;
+    min-height: 400px;
+    margin: 50px auto;
+}
+
+.top_help {
+    width: 100%;
+    height: 100px;
+    /* border: 1px solid; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 80px;
+}
+
+.top_help form input {
+    width: 450px;
+    height: 60px;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 17px;
+    border: 1px solid gray;
+}
+
+.top_help form i {
+    position: absolute;
+    left: 410px;
+    top: 20px;
+    font-size: 20px;
+    color: gray;
+}
+
+.main_help {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid gray;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.main_help .main_help_content {
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.main_help .main_help_content nav ul li:first-child {
+    font-weight: bolder;
+}
+
+.main_help .main_help_content nav ul li {
+    margin: 5px 0px;
+}
+
+.bottom_help {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid gray;
+    margin-top: 10px;
+}
+
+.bottom_help_child {
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.bottom_help_child i {
+    font-size: 80px;
+    padding: 50px;
+    margin-bottom: 20px;
+}
+
+.bottom_help_child p {
+    margin: 5px 0px;
+}
+
+/* css footer */
+footer {
+    background-color: black;
+    height: 250px;
+    width: 100%;
+    padding-top: 30px;
+}
+
+.top_content {
+    margin: auto;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 250px 240px 250px 400px;
+    /* border: 1px solid red; */
+}
+
+.content {
+    color: white;
+   
+}
+
+.content ul li {
+    list-style: none;
+    margin: 10px 0px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    cursor: pointer;
+}
+
+.content ul li:not(:first-child) {
+    color: gray;
+}
+
+.mxh {
+    margin-left: 300px;
+    padding-top: 10px;
+    color: white;
+    /* text-align: center; */
+    width: 100%;
+}
+
+.mxh ul li {
+    display: inline-block;
+}
+
+.mxh li {
+    margin-right: 15px;
+}
+
+/*  css phần đăng ký */
+.login {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    width: 80%;
+    /* border: 1px solid; */
+    margin: 50px auto;
+}
+
+.left img {
+    width: 100%;
+    height: 100%;
+}
+
+.right {
+    padding-left: 50px;
+    padding-top: 30px;
+}
+
+.logo_login {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.logo_login img {
+    object-fit: cover;
+    width: 100px;
+
+}
+
+.sign_in {
+    text-align: center;
+}
+
+.title_login {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.detail_signin {
+    margin: auto;
+    /* width: 80%; */
+    display: grid;
+    grid-template-areas:
+        "a b"
+        "c d"
+        "e e"
+        "f f";
+}
+
+.detail_signin input[type="text"],
+.detail_signin input[type="password"],
+.detail_signin input[type="email"] {
+    padding-left: 10px;
+    font-size: 15px;
+    width: 300px;
+    height: 40px;
+    margin-top: 5px;
+}
+
+.submit_form input[type="submit"] {
+    background-color: black;
+    color: white;
+    font-weight: 600;
+    width: 300px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.submit_form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.action_form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.group_form {
+    margin: 20px;
+}
+
+h2,
+p,
+span,
+label {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.text_color_blue {
+    color: blue;
+}
+
+.text_color_red {
+    color: red;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* css login */
+.detail_login {
+    margin: auto;
+    width: 70%;
+}
+
+.detail_login input[type="text"],
+.detail_login input[type="password"] {
+    padding-left: 10px;
+    font-size: 15px;
+    width: 100%;
+    height: 40px;
+    margin-top: 5px;
+}
+
+/* css detail user */
+.detail_user {
+    width: 80%;
+    height: 60vh;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin: 20px auto;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+
+.detail_user_left {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    border-right: 1px solid gray;
+}
+
+.detail_user_left nav ul li {
+    margin: 20px 0px;
+}
+
+.detail_user_right {
+    /* padding-top: 30px; */
+    padding-left: 30px;
+    /* border: 1px solid rgb(0, 0, 0); */
+}
+
+.detail_user_right_child {
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.title_detail_user {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+}
+
+.avata_user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail_user_child {
+    border-right: 1px solid gray;
+}
+
+.detail_user_child label {
+    color: grey;
+    text-align: right;
+    margin-right: 5px;
+}
+
+
+.group_form_user {
+    display: grid;
+    grid-template-columns: 25% 60%;
+    margin: 20px 0px;
+}
+
+.group_form_user input[type="submit"] {
+    width: 100px;
+    height: 30px;
+}
+
+.group_form_user input[type="text"],
+.group_form_user input[type="email"],
+.group_form_user input[type="password"] {
+    height: 25px;
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 1px solid black;
+}
+
+/* css lịch sử mua hàng */
+.detail_donhang {
+    height: 300px;
+    overflow: auto;
+    /* border: 1px solid black; */
+    margin-right: 20px;
+}
+
+.detail_donhang::-webkit-scrollbar {
+    width: 0.1px;
+}
+
+.detail_donhang::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 5px;
+}
+
+.detail_donhang::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.detail_donhang .table_detail_donhang {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.detail_donhang .table_detail_donhang tr:first-child {
+    height: 50px;
+    width: 100%;
+    position: sticky;
+    top: 0px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: 1px solid;
+}
+
+.detail_donhang .table_detail_donhang tr:not(:first-child) {
+    height: 100px;
+    border-top: 1px solid black;
+    text-align: center;
+}
+
+.table_detail_donhang tr td a i {
+    color: black;
+    font-size: 25px;
+    margin: 10px;
+}
+
+/* detail bill */
+.detail_bill {
+    width: 90%;
+    margin: 50px auto;
+    /* text-align: center; */
+}
+
+.detail_bill .group_detail {
+    margin: 10px 0px;
+}
+
+.detail_bill .group_detail label {
+    font-weight: bolder;
+}
+
+.detail_hd .table_detail_hd {
+    width: 90%;
+    margin: auto;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-collapse: collapse;
+}
+
+.table_detail_hd tr:first-child {
+    height: 80px;
+    box-shadow: 1px 0px 2px gray;
+}
+
+
+.table_detail_hd tr td {
+    text-align: center;
+}
+
+/* voucher */
+.detail_donhang .detail_voucher {
+    width: 95%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+}
+
+.detail_donhang .detail_voucher:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.detail_donhang .detail_voucher li {
+    height: 130px;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.detail_voucher li picture {
+    width: 40%;
+}
+
+.detail_voucher li picture img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.detail_voucher_child {
+    text-align: center;
+}
+
+.detail_voucher_child input {
+    height: 30px;
+    margin-top: -50px;
+    margin-bottom: 10px;
+}
+
+.detail_voucher section a {
+    color: rgb(255, 0, 0);
+    font-size: 20px;
+}
+
+.detail_voucher_child input[type="text"] {
+    width: 200px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding-left: 10px;
+}
+
+.detail_voucher_child input[type="submit"] {
+    width: 50px;
+}
+
+li {
+    list-style: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    cursor: pointer;
+}
+
+/* css sản phẩm yêu thích */
+.sp_yt {
+    margin: 50px 0px;
+}
+
+.sp_yt main {
+    width: 80%;
+    min-height: 500px;
+    /* border: 1px solid; */
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.sp_yt .sp_yt_child {
+    /* border: 1px solid; */
+    height: 350px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.sp_yt .sp_yt_child picture {
+    width: 100%;
+    height: 80%;
+    position: relative;
+}
+
+.sp_yt a {
+    color: black;
+}
+
+.sp_yt .sp_yt_child picture img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.sp_yt .sp_yt_child picture form i {
+    font-size: 50px;
+    color: red;
+}
+
+.sp_yt .sp_yt_child picture form button {
+    background-color: transparent;
+    border-color: transparent;
+    position: absolute;
+    bottom: -150px;
+    left: 40%;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.sp_yt .sp_yt_child picture:hover form button {
+    bottom: 100px;
+}
+
+.sp_yt .sp_yt_child picture:hover img {
+    opacity: 0.5;
+}
+
+.sp_yt_detail {
+    padding-left: 10px;
+
+}
+
+/* css input range  */
+/* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+::selection {
+    color: #fff;
+    background: #17A2B8;
+
+}
+
+.wrapper {
+    background-color: white;
+    width: 80%;
+    padding-top: 10px;
+
+}
+
+.price-input {
+    display: flex;
+    justify-content: space-around;
+
+    margin-top: 20px;
+    /* border: 1px solid; */
+}
+
+.price-input .field {
+    display: flex;
+    /* width: 50%; */
+    height: 30px;
+    align-items: center;
+}
+
+.field input {
+    width: 50%;
+    height: 100%;
+    outline: none;
+    font-size: 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #999;
+    -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.price-input .separator {
+    /* width: 130px; */
+    display: flex;
+    font-size: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider {
+    height: 5px;
+    position: relative;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+.slider .progress {
+    height: 100%;
+    /* width: 100%; */
+    left: 0%;
+    right: 5%;
+    position: absolute;
+    border-radius: 5px;
+    background: black;
+}
+
+.range-input {
+    position: relative;
+}
+
+.range-input input {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    top: -5px;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    height: 17px;
+    width: 17px;
+    border-radius: 50%;
+    background: black;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+input[type="range"]::-moz-range-thumb {
+    height: 17px;
+    width: 17px;
+    border: none;
+    border-radius: 50%;
+    background: black;
+    pointer-events: auto;
+    -moz-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
