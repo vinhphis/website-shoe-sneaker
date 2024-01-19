@@ -17,7 +17,7 @@
                 <?php
                 if ($action == 2) {
                 ?>
-                    <li><a href="../../admin/startbootstrap-sb-admin-2/index.php">Quản lý admin</a></li>
+                    <li><a href="../../admin/index.php">Quản lý admin</a></li>
                 <?php
                 }
                 ?>

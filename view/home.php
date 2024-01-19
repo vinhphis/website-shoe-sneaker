@@ -16,21 +16,21 @@
     <div class="slide">
         <img src="image/image duan1 (5).jpg">
     </div>
-    <button class="prew" onclick="prev()">&#10094;</button>
-    <button class="next" onclick="next()">&#10095;</button>
+    <!-- <button class="prew" onclick="prev()">&#10094;</button>
+    <button class="next" onclick="next()">&#10095;</button> -->
 </div>
 
 
 <div class="boxtitle">
-    <p class="tin">Nổi bật Nhất</p>
-    <h1>NIKE </h1>
+    <p class="tin">Nổi Bật Nhất</p>
+    <h1>NIKE</h1>
     <p class="noidung">Thoải mái cực độ. Siêu bền. Âm lượng cao nhất. Giới thiệu NIKE
         được thiết kế để đẩy bạn vượt qua giới hạn của mình và giúp bạn đạt đến mức tối đa.</p>
     <form action="">
-        <div class="formtitle ">
+        <!-- <div class="formtitle ">
             <input type="button" value="Thông báo" name="thongbao">
             <input type="button" value="Cửa hàng Air Max" name="sanpham">
-        </div>
+        </div> -->
 
     </form>
 </div>
@@ -53,7 +53,7 @@
                         <a href="<?= $linksp ?>"><?= $name_product ?></a>
                         <p><?= number_format($price_sale) ?><sup>đ</sup></p>
                     </div>
-                   
+
                 </div>
         <?php
             }
@@ -92,11 +92,14 @@
                 <div class="sp">
                     <div class="img "><a href="<?= $linksp ?>"><img src="<?= $imagepath ?>" alt=""></a></div>
                     <div class="text">
-                        <a href="#"><?= $name_product ?></a>
-                        <span><?= number_format($price_sale) ?><sup>đ</sup></span>
-                      
+                        <p><a href="#"><?= $name_product ?></a></p>
+                        <p>
+                          <span><?= number_format($price_sale) ?><sup>đ</sup></span>
+                          <span style="font-size: 12px;color: gray; text-decoration: line-through;"><?= number_format($price) ?><sup>đ</sup></span>    
+                        </p>
+                        <p style="font-size: 13px;">Đã bán: <span style="font-weight: 500;"><?= $luotban ?></span></p>
                     </div>
-                    <p>Đã bán: <?= $luotban ?></p>
+
                 </div>
 
         <?php

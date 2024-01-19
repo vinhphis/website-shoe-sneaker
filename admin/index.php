@@ -6,14 +6,14 @@ date_default_timezone_set('Asia/Ho_Chi_Minh'); // add this line with config time
 
 
 
-include "../../model/pdo.php";
-include "../../model/danhmuc.php";
-include "../../model/sanpham.php";
-include "../../model/danhgia.php";
-include "../../model/taikhoan_kh.php";
-include "../../model/donhang.php";
-include "../../model/magiamgia.php";
-include "../../model/thongke.php";
+include "../model/pdo.php";
+include "../model/danhmuc.php";
+include "../model/sanpham.php";
+include "../model/danhgia.php";
+include "../model/taikhoan_kh.php";
+include "../model/donhang.php";
+include "../model/magiamgia.php";
+include "../model/thongke.php";
 include "header.php";
 
 $thongke_sanpham = thongke_sp();
@@ -670,28 +670,33 @@ if (isset($_GET['act'])) {
         case 'addmgg':
             if (isset($_POST['themmgg'])) {
                 $name_mgg =  $_POST['namemgg'];
-                var_dump($name_mgg);
-                die;
+                // var_dump($name_mgg);
+                // die;
+                $soluong = $_POST['soluong'];
                 $discount = $_POST['discount'];
                 $category = $_POST['category'];
 
-                if ($name_mgg == "" || $discount == "" || $category == "") {
+                if ($name_mgg == "" || $discount == "" || $category == "" || $soluong == "") {
                     $thongbao = "Mời nhập thông tin mã giảm giá";
                     header("location: ?act=addmgg");
                     setcookie("thongbao", $thongbao, time() + 1);
-                } else {
+                }else if($category == 1 || $category == 2){             
                     $checkmgg = loadone_mgg_admin($name_mgg);
-
+                    
                     if ($checkmgg == true) {
                         $thongbao = "Mã giảm giá này đã tồn tại";
                         header("location: ?act=addmgg");
                         setcookie("thongbao", $thongbao, time() + 1);
                     } else {
-                        add_mgg($name_mgg, $discount, $category);
+                        add_mgg($name_mgg, $discount,$soluong, $category);
                         $thongbao = "Thêm thành công";
                         header("location: ?act=listmgg");
                         setcookie("thongbao", $thongbao, time() + 1);
                     }
+                } else {
+                    $thongbao = "Loại mã giảm giá 1 hoặc 2";
+                    header("location: ?act=addmgg");
+                    setcookie("thongbao", $thongbao, time() + 1);
                 }
             }
             $listvoucher = loadall_mgg_admin();
@@ -767,7 +772,7 @@ if (isset($_GET['act'])) {
         case 'status5';
             if (isset($_GET['iddh']) && ($_GET['iddh'] > 0)) {
                 extract(load_iddh($_GET['iddh']));
-                if ($action < 5) {
+                if ($action < 5 && $action != 4) {
                     update_status5_bill($_GET['iddh']);
                 } else {
                     $thongbao = "Không thể thay đổi trang thái";

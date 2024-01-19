@@ -5,10 +5,13 @@ function add_product($iddm, $image, $price, $price_sale, $name_product, $mota)
     VALUE('$iddm','$image','$price','$price_sale','$name_product','$mota','0','0','1')";
     pdo_execute($sql);
 }
-function loadall_product($kyw, $iddm, $sapxep, $price_max, $price_min, $stars)
+function loadall_product($kyw, $iddm, $sapxep, $price_max, $price_min, $stars, $id_color, $id_size)
 {
-    $sql = "SELECT product.idsp,danhmuc.name_dm,danhmuc.iddm,image,name_product,price,price_sale,mota,luotban FROM product 
+    $sql = "SELECT DISTINCT product.idsp,danhmuc.name_dm,danhmuc.iddm,image,name_product,price,price_sale,mota,luotban,ratingstars FROM product 
     left join danhmuc on danhmuc.iddm=product.iddm
+    left join bienthe_sp on product.idsp = bienthe_sp.idsp
+    left join color on color.id_color = bienthe_sp.id_color
+    left join size on size.id_size = bienthe_sp.id_size
     where product.action = 1 
     ";
     if ($kyw != "") $sql .= " AND name_product like '%" . $kyw . "%'";
@@ -17,6 +20,12 @@ function loadall_product($kyw, $iddm, $sapxep, $price_max, $price_min, $stars)
         if ($kyw != "") $sql .= " AND name_product like '%" . $kyw . "%'";
     }
 
+    if ($id_color != "") {
+        $sql .= " AND bienthe_sp.id_color in ($id_color)";
+    }
+    if ($id_size != "") {
+        $sql .= " AND bienthe_sp.id_size in ($id_size)";
+    }
     if ($stars != "") {
         $sql .= " AND ratingstars in ($stars)";
     }
@@ -71,13 +80,12 @@ function load_max_min_price_sale()
     $list_product = pdo_query_one($sql);
     return $list_product;
 }
-// function max_min_price_sale($price_min, $price_max)
-// {
-//     $sql = "SELECT * FROM `product`
-//     where price_sale BETWEEN $price_min and $price_max";
-//     $list_product = pdo_query_one($sql);
-//     return $list_product;
-// }
+function ton_kho($idsp)
+{
+    $sql = "SELECT SUM(soluong) as kho FROM `bienthe_sp` WHERE idsp = $idsp";
+    $list_product = pdo_query_one($sql);
+    return $list_product;
+}
 function loadall_pt_giamgia()
 {
     $sql = "SELECT *,((price-price_sale)/price)*100 as ptgiamgia FROM `product` 
@@ -182,11 +190,7 @@ function load_idsp()
     $list_product = pdo_query_one($sql);
     return $list_product;
 }
-// function update_product($idsp, $name_product, $mota)
-// {
-//     $sql = "UPDATE product set name_product='$name_product',mota='$mota' WHERE idsp = $idsp ";
-//     pdo_execute($sql);
-// }
+
 function update_product($idsp, $name_product, $hinh, $price, $price_sale, $mota)
 {
     if ($hinh != "")  $sql = "UPDATE product set  name_product='" . $name_product . "', price='" . $price . "',price_sale='" . $price_sale . "'
@@ -242,13 +246,15 @@ function add_bienthe_sp($idsp, $id_color, $id_size, $soluong)
     pdo_execute($sql);
 }
 
-// function loadone_bienthe($id_color, $id_size, $idsp)
-// {
-//     $sql = "SELECT * FROM bienthe_sp 
-//     where id_color = $id_color  and id_size = $id_size and idsp = $idsp";
-//     $list_spyt = pdo_query_one($sql);
-//     return $list_spyt;
-// }
+function check_bienthe($idsp)
+{
+    $sql = "SELECT * FROM `bienthe_sp` 
+    left join color on color.id_color = bienthe_sp.id_color
+    left join size on size.id_size = bienthe_sp.id_size
+    WHERE idsp = $idsp";
+    $list_spyt = pdo_query($sql);
+    return $list_spyt;
+}
 function loadall_bienthe_sp()
 {
     $sql = "SELECT name_product,size.name_size,color.name_color,bienthe_sp.id_bienthe,bienthe_sp.soluong,bienthe_sp.action FROM bienthe_sp 
@@ -260,7 +266,7 @@ function loadall_bienthe_sp()
     $list_bienthe = pdo_query($sql);
     return $list_bienthe;
 }
-function loadall_bienthe_sp_admin($kyw,$iddm)
+function loadall_bienthe_sp_admin($kyw, $iddm)
 {
     $sql = "SELECT name_product,size.name_size,color.name_color,bienthe_sp.id_bienthe,bienthe_sp.soluong,bienthe_sp.action FROM bienthe_sp 
     left join product on bienthe_sp.idsp = product.idsp
@@ -269,8 +275,8 @@ function loadall_bienthe_sp_admin($kyw,$iddm)
     left join danhmuc on danhmuc.iddm = product.iddm
     where 1
     ";
-     if ($kyw != "") $sql .= " AND name_product like '%" . $kyw . "%'";
-     if ($iddm > 0)  $sql .= " AND danhmuc.iddm ='" . $iddm . "' ";
+    if ($kyw != "") $sql .= " AND name_product like '%" . $kyw . "%'";
+    if ($iddm > 0)  $sql .= " AND danhmuc.iddm ='" . $iddm . "' ";
     $list_bienthe = pdo_query($sql);
     return $list_bienthe;
 }
@@ -321,6 +327,14 @@ function add_size($name_size)
 function loadall_size()
 {
     $sql = "SELECT id_size,name_size FROM size where action = '1' ";
+    $list_color = pdo_query($sql);
+    return $list_color;
+}
+function loadall_size_bienthe($idsp)
+{
+    $sql = " SELECT DISTINCT size.id_size, name_size FROM `bienthe_sp`
+    left join size on size.id_size = bienthe_sp.id_size
+    WHERE idsp = $idsp";
     $list_color = pdo_query($sql);
     return $list_color;
 }
@@ -378,6 +392,14 @@ function loadall_color()
     $list_color = pdo_query($sql);
     return $list_color;
 }
+function loadall_color_bienthe($idsp)
+{
+    $sql = "SELECT DISTINCT color.id_color, name_color FROM `bienthe_sp`
+    left join color on color.id_color = bienthe_sp.id_color
+    WHERE idsp = $idsp";
+    $list_color = pdo_query($sql);
+    return $list_color;
+}
 function loadall_color_admin()
 {
     $sql = "SELECT * FROM color  ";
@@ -430,7 +452,7 @@ function add_image($url_image, $idsp)
 }
 function loadall_image($idsp)
 {
-    $sql = "SELECT * FROM image 
+    $sql = "SELECT url_image FROM image 
     where idsp = $idsp
     limit 4";
     $list_image = pdo_query($sql);

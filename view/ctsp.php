@@ -11,189 +11,172 @@
 }
 ?>
 <div class="product">
-    <div>
-        <div class="product-content row">
-            <?php
 
-            if (isset($loadone_sp)) {
-                // foreach ($loadone_sp_bienthe as $value) {
-                // extract($value);
+    <div class="product-content row">
+        <?php
 
-                extract($loadone_sp);
-                $imagepath = "../upload/" . $image;
-            ?>
-                <section class="chia_product">
+        if (isset($loadone_sp)) :
 
-                    <div class="product-content-left row">
-                        <!-- Ảnh chính -->
-                        <div class="product-content-left-big-img">
-                            <img src="<?= $imagepath ?>" alt="">
-                        </div>
-                        <!-- Ảnh mô tả -->
-                        <div class="product-content-left-small-img">
-                            <?php
-                            foreach ($loadimage_mota as $value) :
-                                extract($value);
-                                $imgpath = "../../../upload/" . $url_image;
-                            ?>
-                                <div class="product-content-left-small-img-sp">
-                                    <img src="<?= $imgpath ?>" alt="">
-                                </div>
-                            <?php endforeach; ?>
 
-                        </div>
+            extract($loadone_sp);
+            $imagepath = "../upload/" . $image;
+        ?>
+            <section class="chia_product">
+
+                <div class="product-content-left row">
+                    <!-- Ảnh chính -->
+                    <div class="product-content-left-big-img">
+                        <img src="<?= $imagepath ?>" alt="">
                     </div>
-                    <!-- detail sản phẩm -->
-                    <div class="product-content-right">
-                        <!--  -->
+                    <!-- Ảnh mô tả -->
+                    <div class="product-content-left-small-img">
+                        <?php
+                        foreach ($loadimage_mota as $value) :
+                            extract($value);
+                            $imgpath = "../../../upload/" . $url_image;
+                        ?>
+                            <div class="product-content-left-small-img-sp">
+                                <img src="<?= $imgpath ?>" alt="">
+                            </div>
+                        <?php endforeach; ?>
 
-                        <div class="product-content-right-product-name">
-                            <h1><?= $name_product ?> </h1>
-                        </div>
-                        <div class="product-content-right-product-price">
-                            <p><?= number_format($price_sale) ?><sup>đ </sup>
-                                <span style="font-size: 0.8vw; color: black;"> Giá cũ:</span>
-                                <del style="font-size: 0.8vw;color: black;"> <?= number_format($price) ?><sup>đ</sup></del>
-                            </p>
-                        </div>
-                        <div class="product-content-right-product-star">
-                            <?php if (isset($load_stars_dg)) :
-                                extract($load_stars_dg);
-                                if ($tong == 0 || $soluong == 0) {
-                                    $trungbinh = "";
-                                } else {
-                                    $trungbinh = $tong / $soluong;
-                                }
-                                if ($trungbinh != "") {
-                                    if (is_int($trungbinh)) {
-                                        if ($trungbinh == 5) {
-                                            for ($i = 1; $i < $trungbinh + 1; $i++) {
-                                                echo '<i class="fa-solid fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
-                                            }
-                                        } else {
-                                            $tb = 5 - $trungbinh;
-                                            for ($i = 1; $i < $trungbinh + 1; $i++) {
-                                                echo '<i class="fa-solid fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
-                                            }
-                                            for ($i = 1; $i < $tb + 1; $i++) {
-                                                echo '<i class="fa-regular fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
-                                            }
+                    </div>
+                </div>
+                <!-- detail sản phẩm -->
+                <div class="product-content-right">
+                    <!--  -->
+
+                    <div class="product-content-right-product-name">
+                        <h1><?= $name_product ?> </h1>
+                    </div>
+                    <div class="product-content-right-product-price">
+                        <p><?= number_format($price_sale) ?><sup>đ </sup>
+                            <span style="font-size: 0.8vw; color: black;"> Giá cũ:</span>
+                            <del style="font-size: 0.8vw;color: black;"> <?= number_format($price) ?><sup>đ</sup></del>
+                        </p>
+                    </div>
+                    <div class="product-content-right-product-star">
+                        <?php if (isset($load_stars_dg)) :
+                            extract($load_stars_dg);
+                            if ($tong == 0 || $soluong == 0) {
+                                $trungbinh = "";
+                            } else {
+                                $trungbinh = $tong / $soluong;
+                            }
+                            if ($trungbinh != "") {
+                                if (is_int($trungbinh)) {
+                                    if ($trungbinh == 5) {
+                                        for ($i = 1; $i < $trungbinh + 1; $i++) {
+                                            echo '<i class="fa-solid fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
                                         }
                                     } else {
-                                        for ($i = 1; $i < $trungbinh; $i++) {
-                                            echo ' <i class="fa-solid fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
+                                        $tb = 5 - $trungbinh;
+                                        for ($i = 1; $i < $trungbinh + 1; $i++) {
+                                            echo '<i class="fa-solid fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
                                         }
-                                        echo '<i class="fa-solid fa-star-half-stroke" title="' . $soluong . ' người đã đánh giá"></i>';
+                                        for ($i = 1; $i < $tb + 1; $i++) {
+                                            echo '<i class="fa-regular fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
+                                        }
                                     }
                                 } else {
-                                    for ($i = 1; $i < 6; $i++) {
-                                        echo '<i class="fa-regular fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
+                                    for ($i = 1; $i < $trungbinh; $i++) {
+                                        echo ' <i class="fa-solid fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
                                     }
+                                    echo '<i class="fa-solid fa-star-half-stroke" title="' . $soluong . ' người đã đánh giá"></i>';
                                 }
-                            ?>
-                                <span>( <?= floatval($trungbinh) ?>/5 )</span>
-                            <?php
-                                update_stars_danhgia(intval($trungbinh), $idsp);
-                            endif; ?>
-                        </div>
-                        <hr>
-                        <div class="product-content-right-product-where">
-                            <p style="padding: 5px 0;font-weight: bold; margin-bottom: 10px;">Sản xuất tại: Việt Nam<span style="float:right">Xuất xứ: Đang cập nhật</span></p>
-                        </div>
-                        <form action="?act=giohang" method="post">
-                            <section style="display: flex; justify-content: space-between;  margin: 20px 0px; width: 90%;  ">
-
-                                <div class="mausac" style="width: 100%;">
-                                    <p style="font-weight: bold;">Màu sắc</p>
-                                    <select name="chon_mau" id="">
-                                        <option value="0" hidden>-- Vui lòng chọn màu --</option>
-                                        <?php
-                                        if (isset($list_color)) {
-                                            foreach ($list_color as $color) {
-                                                extract($color);
-
-                                                // foreach ($check_bienthe as $value) {
-                                                //     extract($value);
-                                                // if ($id_color == $ci)  
-                                                echo ' <option value="' . $id_color . '">' . $name_color . '</option>';
-                                                // }
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-
-                                <div class="size" style="width: 100%;">
-                                    <p style="font-weight: bold;">Size</p>
-                                    <select name="chon_size" id="">
-                                        <option value="0" hidden>-- Vui lòng chọn size --</option>
-                                        <?php
-                                        if (isset($list_size)) {
-                                            foreach ($list_size as $size) {
-                                                extract($size);
-
-                                                // foreach ($check_bienthe as $value):
-                                                //     extract($value);
-                                                //     if ($id_size == $si)
-                                                echo ' <option value="' . $id_size . '">' . $name_size . '</option>';
-                                                // endforeach;
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <?php
-
-                                ?>
-                            </section>
-                            <div class="quantity">
-                                <p style="font-weight: bold;"> Số lượng</p>
-                                <div class="ctsp-soluong">
-                                    <button type="button" class="minus-btn" onclick="handleMinus()">-</button>
-                                    <input type="number" name="soluong" id="soluong" value="1">
-                                    <button type="button" class="plus-btn" onclick="handlePlus()">+</button>
-                                </div>
-                            </div>
-                            <script>
-                                let amountElement = document.getElementById('soluong');
-                                let soluong = amountElement.value;
-
-                                function render(soluong) {
-                                    amountElement.value = soluong;
+                            } else {
+                                for ($i = 1; $i < 6; $i++) {
+                                    echo '<i class="fa-regular fa-star" title="' . $soluong . ' người đã đánh giá"></i>';
                                 }
-
-                                function handlePlus() {
-                                    soluong++;
-                                    render(soluong);
-                                }
-
-                                function handleMinus() {
-                                    if (soluong > 1)
-                                        soluong--;
-                                    console.log(soluong);
-                                    render(soluong);
-                                }
-                            </script>
-
-                            <div class="product-content-right-product-button">
-                                <?php
-                                if (isset($_SESSION['userkh'])) :
-                                ?>
-                                    <input type="hidden" name="image" value="<?= $_SESSION['userkh']['idtk_kh'] ?>">
-                                <?php
-                                endif;
-                                ?>
-
-
-                                <input type="hidden" name="idsp" value="<?= $idsp ?>">
-                                <button name="tgiohang">
-                                    <span>THÊM VÀO GIỎ HÀNG</span>
-                                    <i class="fas fa-shopping-cart"></i>
-                                </button>
-                        </form>
+                            }
+                        ?>
+                            <span>( <?= floatval($trungbinh) ?>/5 )</span>
+                        <?php
+                            update_stars_danhgia(intval($trungbinh), $idsp);
+                        endif; ?>
                     </div>
+                    <hr>
+                    <div class="product-content-right-product-where">
+                        <!-- <p style="padding: 5px 0;font-weight: bold; margin-bottom: 10px;">Sản xuất tại: Việt Nam<span style="float:right">Xuất xứ: Đang cập nhật</span></p> -->
+                    </div>
+                    <form action="?act=giohang" method="post">
+                        <section style=" width: 90%; ">
 
-                    <!--  -->
+                            <div class="mausac" style="width: 100%; margin-top: 20px;">
+                                <p style="font-weight: bold;">Màu sắc</p>
+                                <select name="chon_mau" id="chon_mau" <?php if (empty($list_color)) echo "disabled"  ?>>
+                                    <option value="0" hidden>-- Vui lòng chọn màu --</option>
+                                    <?php
+
+                                    if (isset($list_color)) {
+                                        foreach ($list_color as $color) {
+                                            extract($color);
+                                            echo ' <option value="' . $id_color . '">' . $name_color . '</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="size" style="width: 100%; margin-top: 20px;">
+                                <p style="font-weight: bold;">Size</p>
+
+                                <select name="chon_size" id="chon_size" <?php if (empty($list_size)) echo "disabled"  ?>>
+
+                                    <option value="0" hidden>-- Vui lòng chọn size --</option>
+                                    <?php
+                                    if (isset($list_size)) {
+                                        foreach ($list_size as $size) {
+                                            extract($size);
+                                            echo '<option value="' . $id_size . '">' . $name_size . '</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+
+                            </div>
+
+                        </section>
+                        <div class="quantity">
+                            <p style="font-weight: bold;"> Số lượng</p>
+                            <div class="ctsp-soluong">
+                                <button type="button" class="minus-btn" onclick="handleMinus()">-</button>
+                                <input type="number" name="soluong" id="soluong_ctsp" value="1">
+                                <button type="button" class="plus-btn" onclick="handlePlus()">+</button>
+                            </div>
+                        </div>
+                        <div id="tonkho">
+                            <?php
+                            if (isset($ton_kho)) {
+                                extract($ton_kho);
+                                echo "<span>Kho: $kho </span>";
+                            } else {
+                                echo "<span>Kho: 0 </span>";
+                            }
+                            ?>
+
+                        </div>
+                        <div class="product-content-right-product-button">
+                            <?php
+                            if (isset($_SESSION['userkh'])) :
+                            ?>
+                                <input type="hidden" name="image" value="<?= $_SESSION['userkh']['idtk_kh'] ?>">
+                            <?php
+                            endif;
+                            ?>
+                            <input type="hidden" name="idsp" id="id_sp" value="<?= $idsp ?>">
+                            <button name="tgiohang" class="tgiohang">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Thêm Vào Giỏ Hàng</span>
+                            </button>
+
+
+                            <button name="muangay" class="muahang">
+                                <span>Mua Ngay</span>
+                            </button>
+
+                        </div>
+                    </form>
                     <div class="product-content-right-product-icon">
                         <div class="product-content-right-product-icon-item">
                             <!-- <i class="fas fa-phone-alt"></i> -->
@@ -223,8 +206,7 @@
                                     foreach ($list_dg as $dg) {
                                         extract($dg);
                                         $xoa = "?act=xoadg&iddg=$iddg&idsp=$idsp";
-                                        // var_dump($xoa);
-                                        // die;
+
                                 ?>
                                         <tr>
                                             <th>
@@ -290,43 +272,41 @@
                         </section>
 
                     </section>
+                </div>
 
-        </div>
-
-        </section>
-
-        <div class="slide-sp">
-            <h3>Sản Phẩm Liên Quan</h3>
-            <div class="owl-carousel owl-theme">
-                <?php
-                if (isset($listsp)) {
-                    foreach ($listsp as $pro) {
-                        extract($pro);
-                        $imagepath = "../upload/" . $image;
-                        $linksp = "?act=ctsp&idsp=" . $idsp;
-                ?>
-                        <div class="item">
-                            <div class="img">
-                                <a href="<?= $linksp ?>"><img src="<?= $imagepath ?>" alt=""></a>
-                            </div>
-                            <div class="sub">
-                                <a href="<?= $linksp ?>"><?= $name_product ?></a>
-                                <p><?= number_format($price_sale) ?><sup>đ</sup></p>
-                            </div>
-                           
-                        </div>
-                <?php
-                    }
-                }
-                ?>
-            </div>
-        </div>
-    <?php
-            }
-            // }
-    ?>
+                <!--  -->
+            </section>
     </div>
 
+    <div class="slide-sp">
+        <h3>Sản Phẩm Liên Quan</h3>
+        <div class="owl-carousel owl-theme">
+            <?php
+            if (isset($listsp)) {
+                foreach ($listsp as $pro) {
+                    extract($pro);
+                    $imagepath = "../upload/" . $image;
+                    $linksp = "?act=ctsp&idsp=" . $idsp;
+            ?>
+                    <div class="item">
+                        <div class="img">
+                            <a href="<?= $linksp ?>"><img src="<?= $imagepath ?>" alt=""></a>
+                        </div>
+                        <div class="sub">
+                            <a href="<?= $linksp ?>"><?= $name_product ?></a>
+                            <p><?= number_format($price_sale) ?><sup>đ</sup></p>
+                        </div>
+                    </div>
+            <?php
+                }
+            }
+            ?>
+        </div>
+    </div>
+
+<?php
+        endif;
+?>
 </div>
 
 </div>

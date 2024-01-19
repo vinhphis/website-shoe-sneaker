@@ -1,5 +1,5 @@
 <a href="?act=lsmh_user"><i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>Quay lại trang hóa đơn</a>
-<article class="detail_user_right">
+<form class="detail_user_right" action="?act=detail_dh" method="post">
     <div class="title_detail_user">
         <h3>Chi tiết hóa đơn</h3>
     </div>
@@ -23,7 +23,6 @@
 
             ?>
                     <tr>
-
                         <td style="width: 350px;"><img src="<?= $imagepath ?>" alt="" style="height: 140px; float: right; margin-top: 5px"></td>
                         <td>
                             <section style="float: left; text-align: left; margin-left: 10px;">
@@ -33,6 +32,9 @@
                         </td>
                         <td><?= $soluong ?></td>
                         <td><?= number_format($sum) ?><sup>đ</sup></td>
+                        <input type="hidden" name="soluong[]" value="<?= $soluong ?>">
+                        <input type="hidden" name="id_bienthe[]" value="<?= $id_bienthe ?>">
+                        <input type="hidden" name="iddh" value="<?= $iddh ?>">
                     </tr>
             <?php
                 }
@@ -67,37 +69,40 @@
             <label for="">Hình thức thanh toán:</label> <span><?= $payments ?></span> <br>
 
         </div>
-        <div class="group_detail">
+        <section class="group_detail">
+
             <label for="">Trạng thái:</label>
             <?php
-
             if ($action == 1) {
-
             ?>
                 <span style="font-weight: bolder;">Chờ xác nhận</span>
-                <a href="<?= $huydonhang ?>">
+
+                <button name="huydonhang">
                     <i class="fa-solid fa-trash-can" title="Hủy đơn hàng" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng không?')" style="color: red;"></i>
-                </a>
+                </button>
+
             <?php   } else if ($action == 2) { ?>
                 <span style="font-weight: bolder;color: blue;">Đơn hàng đã được xác nhận</span>
-                <a href="<?= $huydonhang ?>">
+
+                <button name="huydonhang">
                     <i class="fa-solid fa-trash-can" title="Hủy đơn hàng" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng không?')" style="color: red;"></i>
-                </a>
+                </button>
+
             <?php      } else if ($action == 3) { ?>
                 <span style="font-weight: bolder; color: red;">Đơn hàng đang được giao</span>
             <?php    } else if ($action == 4) { ?>
                 <span style="font-weight: bolder; color: green;">Giao thành công</span> <br>
             <?php    } else if ($action == 5) { ?>
                 <span style="color: red; font-weight: bolder;">Admin đã hủy</span> <br>
-            <?php   } else if ($action == 6) {?>
+            <?php   } else if ($action == 6) { ?>
                 <span style="color: red; font-weight: bolder;">Khách hàng đã hủy đơn</span> <br>
             <?php
 
             }
             ?>
 
-        </div>
+        </section>
 
     </section>
-</article>
+</form>
 </main>

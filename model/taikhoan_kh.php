@@ -80,8 +80,7 @@ function quen_matkhau($user, $password)
 }
 function update_tk_kh($idtk_kh, $namekh, $image, $email, $phone, $address)
 {
-    if ($image != "")  $sql = "UPDATE tk_kh SET namekh='$namekh',image='$image',email='$email',phone='$phone',address='$address' WHERE idtk_kh = $idtk_kh ";
-    else  $sql = "UPDATE tk_kh SET namekh='$namekh',email='$email',phone='$phone',address='$address' WHERE idtk_kh = $idtk_kh ";
+    $sql = "UPDATE tk_kh SET namekh='$namekh',email='$email',phone='$phone',address='$address' WHERE idtk_kh = $idtk_kh ";
     pdo_execute($sql);
 }
 // admin thao tác

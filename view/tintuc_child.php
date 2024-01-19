@@ -15,14 +15,15 @@
             ?>
                     <form action="?act=luu_voucher" method="post">
                         <li>
-                            <picture>
-                                <img src="image/abc.png" alt="">
-                            </picture>
+                            <!-- <picture style="height: 200px;"> -->
+                            <img src="image/Screenshot_2023-11-10_120943-removebg-preview.png" alt="" height="80%">
+                            <!-- </picture> -->
                             <section>
                                 <p style="font-size: 25px; font-weight: bolder;"><?= $name_mgg ?></p>
                             </section>
                             <section>
-                                <input type="hidden" name="idmgg" value="<?=$idmgg?>">
+                                <input type="hidden" name="name_mgg" value="<?= $name_mgg ?>">
+                                <input type="hidden" name="idmgg" value="<?= $idmgg ?>">
                                 <input type="submit" value="LƯU" name="luu_mgg">
                             </section>
                         </li>

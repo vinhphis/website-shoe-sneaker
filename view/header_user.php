@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Bán Giày Sneaker</title>
+  
     <link rel="stylesheet" href="owlcarousel/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="owlcarousel/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/style2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 
@@ -35,7 +36,7 @@
                     <?php
                     } else {
                     ?>
-                        <li><a href="controller.php?act=dangnhap">Sign in/Sign out</a> </li>
+                        <li><a href="controller.php?act=dangnhap">Đăng nhập/Đăng ký</a> </li>
                     <?php
                     }
                     ?>
@@ -98,7 +99,7 @@
                     }
                     ?>
 
-                    <li><a href="?act=salesp">Sale</a>
+                    <li><a href="?act=salesp">Khuyến Mãi</a>
                         <ul class="drop_menu_header">
                             <div class="drop_menu_header_child">
                                 <?php
@@ -132,18 +133,18 @@
                     <a href="?act=giohang" class="giohang">
                         <i class="fa-solid fa-bag-shopping fa-xl"></i>
                         <?php
-                        $count_giohang_kh = count_giohang_kh($idtk_kh);
+                        
                         if (isset($count_giohang_kh)) {
                             extract($count_giohang_kh);
                         ?>
-                            <span><?= $soluong ?></span>
+                            <span id="soluong_gh"><?= $soluong ?></span>
                         <?php
                         }
                         ?>
                     </a>
                 <?php
-                } else {
-                } ?>
+                }
+                ?>
             </section>
         </section>
         <?php if (isset($_SESSION['userkh'])) {

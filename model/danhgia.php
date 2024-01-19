@@ -23,7 +23,24 @@ function loadone_danhgia_product($idsp, $idtk_kh)
     $list_dg = pdo_query_one($sql);
     return $list_dg;
 }
-function update_stars_danhgia($stars,$idsp)
+function load_sobl_user($idsp, $idtk_kh)
+{
+    $sql = "SELECT COUNT(product.idsp) as tongbl FROM `donhang` 
+    left join donhang_ct on donhang_ct.iddh = donhang.iddh
+    left join bienthe_sp on bienthe_sp.id_bienthe = donhang_ct.id_bienthe
+    left join product on product.idsp = bienthe_sp.idsp
+    WHERE donhang.action = 4 and donhang.idtk_kh = $idtk_kh and product.idsp = $idsp";
+    $list_dg = pdo_query_one($sql);
+    return $list_dg;
+}
+function count_sobl_user($idsp, $idtk_kh)
+{
+    $sql = "SELECT COUNT(idtk_kh = 3) as soluongbl FROM `danhgia`
+     WHERE idtk_kh = $idtk_kh and idsp = $idsp";
+    $list_dg = pdo_query_one($sql);
+    return $list_dg;
+}
+function update_stars_danhgia($stars, $idsp)
 {
     $sql = "UPDATE product set ratingstars = '$stars' 
     WHERE idsp = $idsp ";
@@ -61,6 +78,7 @@ function update_status1_dg($iddg)
     WHERE iddg = $iddg ";
     pdo_execute($sql);
 }
+
 // chỉ dành cho admin
 function delete_danhgia_product($iddg)
 {

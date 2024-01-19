@@ -12,15 +12,14 @@
                 <p>SẢN PHẨM SALE HOT <i class="fa-solid fa-fire fa-bounce" style="color: red; font-size: 20px;"></i></p>
             </div>
             <div class="cartegory-right-top-item">
-                <form action="?act=sanpham" method="post" >
-                    <select name="giatien" id="mySelect">
+                <form action="?act=sanpham" method="post">
+                    <select name="giatien" id="sapxep">
                         <option value="" hidden>Sắp xếp</option>
-                        <option value="tang" onchange="">Tăng dần</option>
-                        <option value="giam" onchange="">Giảm dần</option>
-                        <option value="a->z" onchange="">A->Z</option>
-                        <option value="z->a" onchange="">Z->A</option>
+                        <option value="tang">Tăng dần</option>
+                        <option value="giam">Giảm dần</option>
+                        <option value="a->z">A->Z</option>
+                        <option value="z->a">Z->A</option>
                     </select>
-                    <button type="submit"></button>
                 </form>
             </div>
         </div>
@@ -41,20 +40,13 @@
                         <div class="img">
                             <a href="<?= $linksp ?>"> <img src="<?= $imagepath ?>" alt=""></a>
                             <section class="cartegory_icon">
-                                <form action="?act=spyt" method="post">
-                                    <input type="hidden" name="idsp" value="<?= $idsp ?>">
-                                    <input type="hidden" name="idtk_kh" value="<?= $idtk_kh ?>">
-                                    <button type="submit" class="tym" name="spyt">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </button>
-                                </form>
-                                <section class="cartegory_icon_gh">
-                                    <button class="openModalBtn cart" name="add_gh_sp">
-                                        <i class="fa-solid fa-cart-shopping fa-xl"></i>
 
-                                    </button>
+                                <section class="cartegory_icon_gh">
+                                    <!-- <button class="openModalBtn cart" name="add_gh_sp">
+                                        <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                                    </button> -->
                                     <!-- modal -->
-                                    <div id="myModal<?= $idsp ?>" class="modal">
+                                    <!-- <div id="myModal<?= $idsp ?>" class="modal">
                                         <form action="?act=thanhtoan_sp_tt" method="post">
                                             <div class="modal-content">
                                                 <section class="modal-content-image">
@@ -114,9 +106,7 @@
                                                     </section>
                                                     <section class="modal-content-soluong">
                                                         <p>Số Lượng</p>
-                                                        <!-- <button type="button" class="minus-btn" onclick="handleMinus()">-</button> -->
                                                         <input type="number" name="soluong" id="soluong" value="1">
-                                                        <!-- <button type="button" class="plus-btn" onclick="handlePlus()">+</button> -->
                                                     </section>
 
                                                     <input type="hidden" name="idsp" id="" value="<?= $idsp ?>">
@@ -129,7 +119,7 @@
                                                 </section>
                                             </div>
                                         </form>
-                                    </div>
+                                    </div> -->
                                     <!-- end modal -->
                                 </section>
                                 <!-- kết thúc  class="cartegory_icon_gh" -->
@@ -143,73 +133,82 @@
                             </div>
                             <!-- <a class="cartegory-right-danhmuc" href="#"><?= $name_dm ?></a> -->
                             <div class="bottom_cartegory">
-                                <div class="category_star">
-                                    <?php
-                                    $load_stars_dg =  loadall_danhgia_stars($idsp);
-                                    if (isset($load_stars_dg)) :
-                                        foreach ($load_stars_dg as  $value) :
-                                            extract($value);
-                                            if ($tong == 0 || $soluong == 0) {
-                                                $trungbinh = "";
-                                            } else {
-                                                $trungbinh = $tong / $soluong;
-                                            }
-                                            if ($trungbinh != "") {
-                                                if (is_int($trungbinh)) {
-                                                    if ($trungbinh == 5) {
-                                                        for ($i = 1; $i < $trungbinh + 1; $i++) {
-                                                            echo '<i class="fa-solid fa-star"></i>';
+                                <section class="bottom_cartegory_left">
+                                    <div class="category_star">
+                                        <?php
+                                        $load_stars_dg =  loadall_danhgia_stars($idsp);
+                                        if (isset($load_stars_dg)) :
+                                            foreach ($load_stars_dg as $value) :
+                                                extract($value);
+                                                if ($tong == 0 || $soluong == 0) {
+                                                    $trungbinh = "";
+                                                } else {
+                                                    $trungbinh = $tong / $soluong;
+                                                }
+                                                if ($trungbinh != "") {
+                                                    if (is_int($trungbinh)) {
+                                                        if ($trungbinh == 5) {
+                                                            for ($i = 1; $i < $trungbinh + 1; $i++) {
+                                                                echo '<i class="fa-solid fa-star"></i>';
+                                                            }
+                                                        } else {
+                                                            $tb = 5 - $trungbinh;
+                                                            for ($i = 1; $i < $trungbinh + 1; $i++) {
+                                                                echo '<i class="fa-solid fa-star"></i>';
+                                                            }
+                                                            for ($i = 1; $i < $tb + 1; $i++) {
+                                                                echo '<i class="fa-regular fa-star"></i>';
+                                                            }
                                                         }
                                                     } else {
-                                                        $tb = 5 - $trungbinh;
-                                                        for ($i = 1; $i < $trungbinh + 1; $i++) {
-                                                            echo '<i class="fa-solid fa-star"></i>';
+                                                        for ($i = 1; $i < $trungbinh; $i++) {
+                                                            echo ' <i class="fa-solid fa-star"></i>';
                                                         }
-                                                        for ($i = 1; $i < $tb + 1; $i++) {
-                                                            echo '<i class="fa-regular fa-star"></i>';
-                                                        }
+                                                        echo '<i class="fa-solid fa-star-half-stroke"></i>';
                                                     }
                                                 } else {
-                                                    for ($i = 1; $i < $trungbinh; $i++) {
-                                                        echo ' <i class="fa-solid fa-star"></i>';
+                                                    // echo "chưa có đánh giá";
+                                                    for ($i = 1; $i < 6; $i++) {
+                                                        echo '<i class="fa-regular fa-star"></i>';
                                                     }
-                                                    echo '<i class="fa-solid fa-star-half-stroke"></i>';
                                                 }
+                                            endforeach;
+                                        endif; ?>
+                                    </div>
+                                    <div class="category_price">
+                                        <span><?= number_format($price_sale) ?><sup>đ</sup></span>
+                                        <span><?= number_format($price) ?><sup>đ</sup></span>
+                                    </div>
+                                    <?php
+                                    $load_luotban = load_luotban($idsp);
+                                    if (isset($load_luotban)) {
+                                        foreach ($load_luotban as $value) {
+                                            extract($value);
+                                            if ($luotban > 0) {
+                                                echo "<span>Đã bán: $luotban</span>";
                                             } else {
-                                                // echo "chưa có đánh giá";
-                                                for ($i = 1; $i < 6; $i++) {
-                                                    echo '<i class="fa-regular fa-star"></i>';
-                                                }
+                                                echo "<span>Đã bán: 0</span>";
                                             }
-                                        endforeach;
-                                    endif; ?>
-                                </div>
-                                <div class="category_price">
-                                    <span><?= number_format($price_sale) ?><sup>đ</sup></span>
-                                    <span><?= number_format($price) ?><sup>đ</sup></span>
-                                </div>
-                                <?php
-                                $load_luotban = load_luotban($idsp);
-                                if (isset($load_luotban)) {
-                                    foreach ($load_luotban as $value) {
-                                        extract($value);
-                                        if ($luotban > 0) {
-                                            echo "<span>Đã bán: $luotban</span>";
-                                        } else {
-                                            echo "<span>Đã bán: 0</span>";
                                         }
                                     }
-                                }
-                                ?>
+                                    ?>
+                                </section>
+                                <form action="?act=spyt" method="post">
+                                    <input type="hidden" name="idsp" value="<?= $idsp ?>">
+                                    <input type="hidden" name="idtk_kh" value="<?= $idtk_kh ?>">
+                                    <button type="submit" class="tym" name="spyt">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                     <!-- end sản phẩm -->
-                <?php
+            <?php
                 }
-            } 
-                ?>
-               
+            }
+            ?>
+
         </section>
 
     </div>

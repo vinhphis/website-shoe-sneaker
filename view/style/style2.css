@@ -5,7 +5,7 @@
 
 .baner img {
     width: 100%;
-    height: 500px;
+    height: 550px;
     object-fit: cover;
 }
 
@@ -17,26 +17,28 @@
 .baner .prew {
     font-size: 30px;
     position: absolute;
-    color: black;
+    color: rgb(255, 0, 0);
     bottom: 35%;
+    left: 2%;
     background: none;
     border: none;
-    left: 10px;
+
 }
 
 .baner .next {
     position: absolute;
-    left: 97%;
-    color: black;
+    right: 2%;
+    color: rgb(255, 0, 0);
     bottom: 35%;
     background: none;
     border: none;
     font-size: 30px;
 }
 
-.baner .slide:hover .prew {
+
+/* .baner .slide:hover .prew {
     bottom: 35%;
-}
+} */
 
 .baner2 {
     width: 90%;
@@ -224,26 +226,28 @@
     text-decoration: none;
     padding: 10px 0;
     color: black;
-    font-size: 15px;
+    /* font-size: 15px; */
+    font-weight: 500;
 }
 
 .sub a:hover {
-    color: blue;
+    color: gray;
 }
 
 .item p {
     color: red;
-    font-size: 13px;
+    /* font-size: 13px; */
+    font-weight: 500;
 }
 
 .item {
     border: 0.1px solid rgb(224, 224, 224);
-    height: 350px;
+    height: 380px;
     width: 100%;
 }
 
 .item .img {
-    height: 80%;
+    /* height: 80%; */
     width: 100%;
     object-fit: cover;
 }
@@ -253,8 +257,6 @@
 .boxsp-theoloai {
     width: 80%;
     margin: 50px auto;
-
-    /* border: 1px solid; */
 }
 
 .sanpham {
@@ -262,29 +264,29 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 20px;
 }
-.sp{
+
+.sp {
     border: 0.1px solid rgb(223, 223, 223);
 }
+
 .sanpham .img img {
     width: 100%;
 }
 
 .text {
-    display: flex;
-    justify-content: space-between;
     padding: 0px 5px;
 }
 
 .text a {
     text-decoration: none;
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 500;
     color: black;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.text span {
-    font-size: 0.7vw;
+.text p:nth-child(2n) {
+    font-size: 15px;
     font-weight: bold;
     color: red;
 }
@@ -512,14 +514,16 @@
 
 .mausac select,
 .size select {
-    width: 80%;
+    width: 50%;
     height: 40px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 
 
 .quantity {
+    margin-top: 20px;
     display: flex;
     margin-bottom: 20px;
 }
@@ -539,10 +543,12 @@
     font-size: 20px;
     width: 25px;
     height: 25px;
-    outline: none;
-    background: none;
+    background: transparent;
     border: 1px solid #ececec;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .ctsp-soluong button:hover {
@@ -557,38 +563,30 @@
 
 .product-content-right-product-button {
     margin: 50px 0px;
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
 .product-content-right-product-button button {
-    width: 250px;
-    height: 40px;
+    width: 300px;
+    height: 50px;
     padding: 10px 0;
-}
-
-.product-content-right-product-button button:first-child {
-    justify-content: space-between;
-    background-color: #ffff;
-    border: 2px solid black;
+    background-color: transparent;
+    border: 1px solid gray;
     cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 5px;
 }
 
-.product-content-right-product-button button:first-child:hover {
+.product-content-right-product-button .tgiohang:hover {
     background-color: black;
     color: #ffff;
 }
 
-.product-content-right-product-button button:last-child {
-    border: 2px solid black;
-    color: black;
-    background-color: #ffff;
-    cursor: pointer;
-}
-
 .product-content-right-product-button button:last-child:hover {
-    background-color: black;
+    background-color: rgb(255, 0, 0);
     color: #ffff;
 }
 
@@ -634,7 +632,7 @@
 
 .danhgia .danhgia_content {
     width: 100%;
-    max-height: 250px;
+    max-height: 307px;
     margin-top: 20px;
     margin-bottom: 20px;
     overflow: auto;
@@ -843,8 +841,24 @@
 }
 
 .bottom_cartegory {
+    width: 100%;
     position: absolute;
     bottom: 0px;
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+.bottom_cartegory form{
+    bottom: 10%;
+    right: 5%;
+    position: absolute;
+}
+.bottom_cartegory form button{
+    background-color: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+.bottom_cartegory form button i{
+    font-size: 20px;
 }
 
 .bottom_cartegory .category_star i {
@@ -880,14 +894,14 @@
 
 
 
-.cartegory-right-content-item .img .cartegory_icon {
+/* .cartegory-right-content-item .img .cartegory_icon {
     bottom: -130px;
     position: absolute;
     left: 50%;
 
-}
+} */
 
-.cartegory-right-content-item .img .tym i {
+/* .cartegory-right-content-item .img .tym i {
     font-size: 40px;
     color: red;
     position: absolute;
@@ -899,9 +913,9 @@
     color: red;
     position: absolute;
 
-}
+} */
 
-.cartegory_icon button {
+/* .cartegory_icon button {
     border: 1px solid transparent;
     background-color: transparent;
     cursor: pointer;
@@ -909,32 +923,29 @@
 
 .cartegory_icon_gh {
     left: 20%;
-}
+} */
 
 /* .cartegory_icon  {
     display: flex;
     flex-direction: row;
 } */
 
-.cartegory_icon {
+/* .cartegory_icon {
     text-align: center;
-}
+} */
+
+/* .cartegory-right-content-item .img:hover .cartegory_icon {
+    bottom: 100px;
+    transition: all 0.5s ease-in-out;
+    margin: auto;
+    display: block;
+} */
 
 .cartegory-right-content-item img {
     width: 100%;
     transition: all 0.5s ease-in-out;
 }
 
-.cartegory-right-content-item .img:hover .cartegory_icon {
-    bottom: 100px;
-    transition: all 0.5s ease-in-out;
-    margin: auto;
-    display: block;
-}
-
-.cartegory-right-content-item .img:hover>a img {
-    opacity: 0.5;
-}
 
 .giagoc {
     color: chocolate;

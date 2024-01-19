@@ -30,7 +30,7 @@
             ?>
                     <tr class="body_table_giohang">
                         <td>
-                            <input type="checkbox" name="thanhtoansp[]" value="<?= $iddh_ct ?>" id="">
+                            <input type="checkbox" name="thanhtoansp[]" value="<?= $iddh_ct ?>" class="tt_sp">
                         </td>
                         <td class="detail_sp">
                             <picture>
@@ -45,12 +45,12 @@
                         </td>
 
                         <td>
-                            <p><?= number_format($price_sale) ?> <sup>đ</sup></p>
+                            <p ><?= number_format($price_sale) ?> <sup>đ</sup></p>
                         </td>
                         <td>
                             <div class="soluong">
                                 <!-- <button type="button" class="minus-btn" onclick="handleMinus()">-</button> -->
-                                <p><?= $soluong ?></p>
+                                <p ><?= $soluong ?></p>
                                 <!-- <button type="button" class="plus-btn" onclick="handlePlus()">+</button> -->
                             </div>
                         </td>
@@ -84,6 +84,7 @@
                     </td>
                     <td>
                         <p><?= number_format($tong_dh) ?> <sup>đ</sup></p>
+                        <!-- <p id="tongthanhtoan">0 <sup>đ</sup></p> -->
                     </td>
                     <td>
                         <button name="thanhtoan">Tiếp Tục</button>
@@ -94,7 +95,7 @@
     </form>
 </div>
 <div class="slide-sp" style="width: 80%;">
-    <h3>Sản Phẩm Liên Quan</h3>
+    <h3>Sản Phẩm Bạn Sẽ Thích</h3>
     <div class="owl-carousel owl-theme">
         <?php
         if (isset($loadall_product_home)) {
@@ -111,7 +112,7 @@
                         <a href="<?= $linksp ?>"><?= $name_product ?></a>
                         <p><?= number_format($price_sale) ?><sup>đ</sup></p>
                     </div>
-                  
+
                 </div>
         <?php
             }

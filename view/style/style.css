@@ -2,14 +2,19 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-.up_header{
+html{
+    scroll-behavior: smooth;
+    /* tạo hiệu ứng chuyển cảnh */
+}
+.up_header {
     right: 50px;
     bottom: 5%;
     position: fixed;
 }
-.up_header button{
+
+.up_header button {
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -17,10 +22,12 @@
     background-color: transparent;
     border-radius: 100%;
 }
-.up_header i{
+
+.up_header i {
     font-size: 40px;
-    
+
 }
+
 input[type="radio"] {
     cursor: pointer;
 }
@@ -38,7 +45,6 @@ input[type="radio"] {
 }
 
 .loading-spinner {
-    /* border-top: 5px solid #000000; */
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -65,24 +71,7 @@ input[type="radio"] {
     }
 }
 
-/* @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
 
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.loading {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid #767676;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-} */
 
 /* CSS cho modal */
 .modal {
@@ -128,15 +117,6 @@ input[type="radio"] {
     height: 30px;
     cursor: pointer;
 }
-
-/* .modal-content-soluong {
-    border: 1px solid;
-} */
-
-/* .modal-content-soluong button {
-    width: 20px;
-
-} */
 
 .modal-content-soluong input {
     width: 50px;
@@ -403,7 +383,7 @@ body {
 }
 
 .search_header i {
-    padding: 10px 13px;
+    padding: 10px;
     color: black;
 }
 
@@ -489,8 +469,8 @@ body {
 /*  */
 .tintuc_detail {
     margin: 50px auto;
-    width: 80%;
-    /* border: 1px solid; */
+    width: 70%;
+
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
@@ -504,6 +484,7 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 200px;
 }
 
 .tintuc_detail input {
@@ -631,7 +612,7 @@ footer {
 
 .content {
     color: white;
-   
+
 }
 
 .content ul li {
@@ -908,10 +889,23 @@ a {
 }
 
 /* detail bill */
+a[href="?act=lsmh_user"] {
+    margin-left: 30px;
+}
+a[href="?act=lsmh_user"] i{
+    margin-right: 5px;
+}
 .detail_bill {
     width: 90%;
     margin: 50px auto;
     /* text-align: center; */
+}
+
+.detail_bill button[name="huydonhang"] {
+    background-color: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 20px;
 }
 
 .detail_bill .group_detail {
@@ -1072,15 +1066,52 @@ li {
 
 }
 
-/* css input range  */
+/* css đặt hàng thành công  */
+.order_success {
+    text-align: center;
+
+}
+
+.order_success i {
+    font-size: 80px;
+    color: green;
+    margin-top: 50px;
+}
+
+.order_success .title_order {
+    font-size: 25px;
+    color: green;
+    margin-top: 30px;
+}
+
+.order_success .content_order {
+    margin-top: 30px;
+}
+
+.order_success button {
+    height: 35px;
+    width: 150px;
+    background-color: transparent;
+    margin: 30px 0px;
+    border: 1px solid rgb(204, 204, 204);
+}
+
+.order_success button a {
+    text-decoration: none;
+    color: blue;
+
+}
+
+/*  */
+
+/* css lọc giá  */
 /* Import Google Font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-::selection {
+/* ::selection {
     color: #fff;
     background: #17A2B8;
-
-}
+} */
 
 .wrapper {
     background-color: white;
@@ -1092,9 +1123,8 @@ li {
 .price-input {
     display: flex;
     justify-content: space-around;
-
     margin-top: 20px;
-    /* border: 1px solid; */
+
 }
 
 .price-input .field {

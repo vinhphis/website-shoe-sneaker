@@ -46,7 +46,7 @@ function count_status1_hd()
 // end thống kê
 function load_top_4sp_luotban()
 {
-    $sql = "SELECT p.name_product,p.price_sale,p.image, p.idsp,SUM(dhct.soluong) as luotban FROM `donhang` dh
+    $sql = "SELECT p.name_product,p.price_sale,p.price,p.image, p.idsp,SUM(dhct.soluong) as luotban FROM `donhang` dh
     INNER JOIN donhang_ct dhct ON dh.iddh=dhct.iddh
     INNER JOIN bienthe_sp bt ON bt.id_bienthe = dhct.id_bienthe
     INNER JOIN product p ON p.idsp = bt.idsp
@@ -79,6 +79,13 @@ function count_giohang_kh($idtk_kh)
     ";
     $list_giohang = pdo_query_one($sql);
     return $list_giohang;
+}
+function update_soluong_giohang($iddh_ct, $soluong, $id_bienthe)
+{
+    $sql = "UPDATE donhang_ct SET
+    soluong = soluong + $soluong
+    where iddh_ct = $iddh_ct and id_bienthe= $id_bienthe";
+    pdo_execute($sql);
 }
 // function check_id_bienthe_gh()
 // {
@@ -133,13 +140,18 @@ function add_bill($ma_hd,  $ghichu, $tongtien, $idtk_kh, $name_buyer, $phone, $e
     pdo_execute($sql);
 }
 
-function update_bienthe_soluong($id_bienthe, $soluong)
+function update_bienthe_soluong_dathang($id_bienthe, $soluong)
 {
     $sql = "UPDATE bienthe_sp set soluong = soluong - $soluong 
     WHERE id_bienthe = $id_bienthe ";
     pdo_execute($sql);
 }
-
+function update_bienthe_soluong_huydon($id_bienthe, $soluong)
+{
+    $sql = "UPDATE bienthe_sp set soluong = soluong + $soluong 
+    WHERE id_bienthe = $id_bienthe ";
+    pdo_execute($sql);
+}
 function load_bill($idtk_kh)
 {
     $sql = "SELECT * from donhang dh

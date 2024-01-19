@@ -36,6 +36,7 @@
                         <th style="width: 550px;">MÔ TẢ</th>
                         <th>TRẠNG THÁI</th>
                         <th>THAO TÁC</th>
+        
                     </tr>
                     <?php
                     foreach ($listsanpham as $sanpham) :
@@ -43,7 +44,8 @@
                         $suasp = "index.php?act=suasp&idsp=" . $idsp;
                         $ansp = "index.php?act=xoasp&idsp=" . $idsp;
                         $hiensp = "index.php?act=hiensp&idsp=" . $idsp;
-                        $hinhpart = "../../upload/" . $image;
+                     
+                        $hinhpart = "../upload/" . $image;
                         // check ảnh có tồn tại hay không
                         if (is_file($hinhpart)) {
                             $hinh = "<img src='" . $hinhpart . "' height='80'>";

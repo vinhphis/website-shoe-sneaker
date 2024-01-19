@@ -28,6 +28,37 @@
         </div>
         <hr width="80%" align="center">
         <div class="cartegory-left-danhmuc">
+            <h3>Màu Sắc</h3>
+            <?php
+            if (isset($list_color)) {
+                foreach ($list_color as  $value) {
+                    extract($value);
+                    echo '<div> <input type="checkbox" name="color[]" id="" value="' . $id_color . '"> <span>' . $name_color . ' </span></div>';
+                }
+            }
+            ?>
+        </div>
+        <hr width="80%" align="center">
+        <div class="cartegory-left-danhmuc">
+            <h3>Kích Thước</h3>
+
+            <?php
+
+            if (isset($list_size)) {
+                foreach ($list_size as  $value) {
+                    extract($value);
+            ?>
+                    <div>
+                        <input type="checkbox" name="size[]" id="" value="<?= $id_size ?>"  >
+                        <span><?= $name_size ?></span>
+                    </div>
+            <?php
+                }
+            }
+            ?>
+        </div>
+        <hr width="80%" align="center">
+        <div class="cartegory-left-danhmuc">
             <?php
             if (isset($load_max_min_price_sale)) {
                 extract($load_max_min_price_sale);

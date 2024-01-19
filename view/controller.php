@@ -10,9 +10,6 @@ include '../model/danhmuc.php';
 include '../model/danhgia.php';
 include '../model/magiamgia.php';
 
-// if (isset($thongbao)) {
-//     setcookie("thongbao", $thongbao, time() + 1);
-// }
 
 $load_top1 =  loadall_top1_giamgia();
 $load_6sp =  loadall_6sp_giamgia();
@@ -26,6 +23,7 @@ $load_giamgia = loadall_pt_giamgia();
 
 if (isset($_SESSION['userkh'])) {
     extract($_SESSION['userkh']);
+    $count_giohang_kh = count_giohang_kh($idtk_kh);
 } else {
     echo '';
 }
@@ -140,7 +138,6 @@ if (isset($_GET['act']) && ($_GET['act'])) {
             } else {
                 include './signin-signout/quenmk.php';
             }
-
             break;
 
         case 'detail_user':
@@ -193,9 +190,21 @@ if (isset($_GET['act']) && ($_GET['act'])) {
         case 'luu_voucher':
             if (isset($_SESSION['userkh'])) {
                 if (isset($_POST['luu_mgg'])) {
-                    $idmgg = $_POST['idmgg'];
-                    update_mgg_user($idtk_kh, $idmgg);
-                    $thongbao = "Lưu voucher thành công";
+                    $loadall_mgg = loadall_mgg($_POST['name_mgg']);
+                    extract($loadall_mgg);
+                    // var_dump($soluong);
+                    // die;
+                    $loadall_mgg_kh =  loadall_mgg_kh($_POST['name_mgg'], $idtk_kh);
+                    if ($loadall_mgg_kh == true) {
+                        $thongbao = "Bạn đã lưu mã giảm giá này rồi!";
+                    } else if($soluong > 0) {
+                        $idmgg = $_POST['idmgg'];
+                        update_mgg_user($idtk_kh, $idmgg);
+                        update_soluong_voucher($idmgg);
+                        $thongbao = "Lưu voucher thành công";
+                    }else{
+                        $thongbao = "Số lượng mã giảm giá này đã hết";
+                    }
                 }
             } else {
                 $thongbao = "Vui lòng đăng nhập";
@@ -209,15 +218,19 @@ if (isset($_GET['act']) && ($_GET['act'])) {
             break;
         case 'detail_dh':
             if (isset($_GET['iddh']))  $list_bill_detail = load_bill_detail($_GET['iddh']);
-            include './detail_user/list_hd.php';
-            break;
-        case 'huydh':
-            if (isset($_GET['iddh'])) {
-                update_status6_bill($_GET['iddh']);
+
+            if (isset($_POST['huydonhang'])) {
+                for ($i = 0; $i < count($_POST['id_bienthe']); $i++) {
+                    $id = $_POST['id_bienthe'][$i];
+                    $sl = $_POST['soluong'][$i];
+                    update_bienthe_soluong_huydon($id, $sl);
+                }
+                update_status6_bill($_POST['iddh']);
+                $list_bill_detail = load_bill_detail($_POST['iddh']);
             }
-            $list_bill_detail = load_bill_detail($_GET['iddh']);
-            include './detail_user/list_hd.php';
+            include './detail_user/detail_donhang.php';
             break;
+
         case 'voucher_user':
             $load_giamgia_user = loadall_mgg_user($idtk_kh);
             include './detail_user/voucher.php';
@@ -229,12 +242,24 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                 } else {
                     $name_mgg = $_POST['voucher'];
                     $loadall_mgg = loadall_mgg($name_mgg);
-                    if ($loadall_mgg == true) {
-                        extract($loadall_mgg);
-                        update_mgg_user($idtk_kh, $idmgg);
-                        $thongbao = "Thêm mã giảm giá thành công";
+                    extract($loadall_mgg);
+                    // var_dump($soluong);
+                    // die;
+                    $loadall_mgg_kh =  loadall_mgg_kh($name_mgg, $idtk_kh);
+                    if ($loadall_mgg_kh == true) {
+                        $thongbao = "Bạn đã lưu mã giảm giá này rồi!";
+                    } else if ($soluong > 0) {
+
+                        if ($loadall_mgg == true) {
+                            extract($loadall_mgg);
+                            update_mgg_user($idtk_kh, $idmgg);
+                            update_soluong_voucher($idmgg);
+                            $thongbao = "Thêm mã giảm giá thành công";
+                        } else {
+                            $thongbao = "Không tồn tại mã giảm giá này";
+                        }
                     } else {
-                        $thongbao = "Không tồn tại mã giảm giá này";
+                        $thongbao = "Số lượng mã giảm giá này đã hết";
                     }
                 }
             }
@@ -255,14 +280,16 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                     if (empty($_POST['danhgia'])) {
                         $thongbao = "Vui lòng nhập đánh giá của bạn";
                     } else {
-                        // mỗi user chỉ được đánh giá 1 lần
-                        $load_dg = loadone_danhgia_product($_POST['idsp'], $idtk_kh);
-                        if ($load_dg == true) {
-                            $thongbao = "Bạn đã đánh giá sản phẩm rồi";
+                        // mỗi user mua 1 lần được bình luận 1 lần, N lần thì bình luận N lần
+                        $load_sobl_user = load_sobl_user($_POST['idsp'], $idtk_kh);
+                        $count_sobl_user = count_sobl_user($_POST['idsp'], $idtk_kh);
+                        if ($load_sobl_user['tongbl'] == 0) {
+                            $thongbao = "Khách hàng phải mua hàng mới có thể đánh giá sản phẩm";
+                        } else if ($load_sobl_user['tongbl'] <= $count_sobl_user['soluongbl']) {
+                            $thongbao = "Bạn đã hết lượt đánh giá sản phẩm";
                         } else {
                             $ngaybl = date('Y/m/d G:i:s');
                             add_danhgia($idtk_kh, $_POST['idsp'], $_POST['danhgia'], $ngaybl, $_POST['star']);
-                            // $thongbao = "Đánh giá thành công";
                         }
                     }
                 } else {
@@ -275,9 +302,15 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                 $loadone_sp = loadone_product($_GET['idsp']);
                 extract($loadone_sp);
                 $list_dg =  load_danhgia_product($_GET['idsp']);
-                $load_stars_dg =  loadone_danhgia_stars($_GET['idsp']);
-                $list_size = loadall_size();
-                $list_color = loadall_color();
+                $load_stars_dg = loadone_danhgia_stars($_GET['idsp']);
+
+                $ton_kho = ton_kho($_GET['idsp']);
+
+                $list_size = loadall_size_bienthe($_GET['idsp']);
+                $list_color = loadall_color_bienthe($_GET['idsp']);
+                // var_dump($list_size);
+                // var_dump($list_color);
+                // die;
                 $loadimage_mota = loadall_image($_GET['idsp']);
                 // load sản phẩm cùng loại
                 $listsp = loadall_product_cungloai($iddm, $_GET['idsp']);
@@ -298,6 +331,17 @@ if (isset($_GET['act']) && ($_GET['act'])) {
             $list_dg =  load_danhgia_product($idsp);
             break;
         case 'sanpham':
+            if (isset($_POST['size'])) {
+                $id_size = join(",", $_POST['size']);
+            } else {
+
+                $id_size = "";
+            }
+            if (isset($_POST['color'])) {
+                $id_color = join(",", $_POST['color']);
+            } else {
+                $id_color = "";
+            }
             if (isset($_POST['stars'])) {
                 $stars = join(",", $_POST['stars']);
             } else {
@@ -326,16 +370,13 @@ if (isset($_GET['act']) && ($_GET['act'])) {
             } else {
                 $iddm = 0;
             }
-            if (isset($_POST['giatien'])) {
-                $sapxep = $_POST['giatien'];
-            } else {
-                $sapxep = "";
-            }
+
             $list_size = loadall_size();
             $list_color = loadall_color();
             $load_dm_sp = loadall_dm();
             $load_max_min_price_sale = load_max_min_price_sale();
-            $listsanpham = loadall_product($kyw, $iddm,  $sapxep, $price_max, $price_min, $stars);
+            $listsanpham = loadall_product($kyw, $iddm,  $sapxep = "", $price_max, $price_min, $stars, $id_color, $id_size);
+
             include 'sanpham.php';
             break;
         case 'salesp':
@@ -395,7 +436,7 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                     for ($i = 0; $i < count($_POST['id_bienthe']); $i++) {
                         $id = $_POST['id_bienthe'][$i];
                         $sl = $_POST['soluong'][$i];
-                        update_bienthe_soluong($id, $sl);
+                        update_bienthe_soluong_dathang($id, $sl);
                     }
                     // xóa mã giảm giá của user khi đặt hàng thành công
                     if (isset($_SESSION['mgg'])) {
@@ -407,7 +448,7 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                     update_status1_bill($iddh_ct);
                     extract(insert_iddh()); // iddh
                     update_iddh($iddh, $iddh_ct);
-                    include 'home.php';
+                    include 'order_success.php';
                 }
             }
             if (isset($_POST['apdung'])) {
@@ -427,66 +468,6 @@ if (isset($_GET['act']) && ($_GET['act'])) {
             }
             break;
             // mua hàng từ trang sản phẩm không thông qua giỏ hàng
-        case 'thanhtoan_sp_tt':
-
-            if (isset($_SESSION['userkh'])) {
-                if (isset($_POST['thanhtoan_sp'])) {
-                    if (!empty($_POST['size']) && !empty($_POST['mau']) && !empty($_POST['idsp'])) {
-                        $id_size = $_POST['size'];
-                        $id_color = $_POST['mau'];
-                        $idsp = $_POST['idsp'];
-                        // check sản phẩm có trong bảng biến thể không
-                        $loadbt = loadone_bienthe($id_color, $id_size, $idsp);
-                        if ($loadbt == false) {
-                            $thongbao = "Sản phẩm chưa có biến thể này";
-                            header("location:?act=sanpham");
-                            setcookie("thongbao", $thongbao, time() + 1);
-                        } else {
-                            $check = 1;
-                            if ($loadbt['soluong'] == 0) {
-                                $check = 2;
-                            } else  if ($loadbt['soluong'] < $_POST['soluong']) {
-                                $check = 3;
-                            } else if ($_POST['soluong'] <= 0) {
-                                $check = 4;
-                            }
-
-                            // xử lý thông báo
-                            if ($check == 1) {
-                                $_SESSION['soluong'] = $_POST['soluong'];
-                                $_SESSION['sp_tt'] = $loadbt['id_bienthe'];
-                                $thanhtoan_sp_tt = loadone_bt_tt($_SESSION['sp_tt']);
-                                array_push($thanhtoan_sp_tt, $_SESSION['soluong']);
-
-                                $load_mgg = loadall_mgg_user($idtk_kh);
-                                include "thanhtoan_sp_tt.php";
-                            } else if ($check == 2) {
-                                $thongbao = "Số lượng tồn kho đã hết";
-                                header("location: ?act=sanpham");
-                                setcookie("thongbao", $thongbao, time() + 1);
-                            } else if ($check == 3) {
-                                $thongbao = "Số lượng bạn chọn vượt quá số lượng tồn kho";
-                                header("location: ?act=sanpham");
-                                setcookie("thongbao", $thongbao, time() + 1);
-                            } else if ($check == 4) {
-                                $thongbao = "Vui lòng chọn số lượng lớn hơn 0";
-                                header("location: ?act=sanpham");
-                                setcookie("thongbao", $thongbao, time() + 1);
-                            }
-                        }
-                    } else {
-                        $thongbao = "Vui lòng chọn thông tin giày";
-                        header("location: ?act=sanpham");
-                        setcookie("thongbao", $thongbao, time() + 1);
-                    }
-                }
-            } else {
-                $thongbao = "Vui lòng đăng nhập để mua hàng";
-                header("location: ?act=sanpham");
-                setcookie("thongbao", $thongbao, time() + 1);
-            }
-            $listsanpham = loadall_product($kyw = "", $iddm = "", $sapxep = "", $price_max = "", $price_min = "", $stars = "");
-            break;
         case 'dathang_sp_tt':
             if (isset($_POST['dathang'])) {
                 $check_iddh = check_count_hd();
@@ -520,7 +501,7 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                     extract($insert_iddh_ct); // top1_iddhct 
 
                     // trừ số lượng biến thể khi mua thành công
-                    update_bienthe_soluong($_POST['id_bienthe'], $_POST['soluong']);
+                    update_bienthe_soluong_dathang($_POST['id_bienthe'], $_POST['soluong']);
 
                     // xóa mã giảm giá của user khi đặt hàng thành công
                     if (isset($_SESSION['mgg'])) {
@@ -536,7 +517,8 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                     // lấy ra iddh mới được tạo 
                     extract(insert_iddh());
                     update_iddh($iddh, $top1_iddhct);
-                    include 'home.php';
+
+                    include 'order_success.php';
                 }
             }
             if (isset($_POST['apdung_sp_tt'])) {
@@ -557,11 +539,15 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                 }
             }
             break;
+
+        case 'order_success':
+            include 'order_success.php';
+            break;
+
             // Trang giỏ hàng
         case 'giohang':
             if (isset($_POST['idsp']))   $idsp = $_POST['idsp'];
             if (isset($_SESSION['userkh'])) {
-
                 if (isset($_POST['tgiohang'])) {
                     $id_size = $_POST['chon_size'];
                     $id_color = $_POST['chon_mau'];
@@ -587,10 +573,13 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                                 foreach ($list_gh as  $gh) {
                                     // extract($gh);
                                     if ($loadbt['id_bienthe'] == $gh['id_bienthe']) {
+                                        $_SESSION['iddh_ct'] = $gh['iddh_ct'];
+                                        $_SESSION['id_bienthe'] =  $gh['id_bienthe'];
                                         $check = 2;
                                     }
                                 }
                             }
+
                             // xử lý thông báo
                             if ($check == 1) {
                                 $soluong = $_POST['soluong'];
@@ -607,12 +596,13 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                                         add_giohang($loadbt['id_bienthe'], $_SESSION['userkh']['idtk_kh'], $soluong);
                                         $list_gh =  loadall_giohang($idtk_kh);
                                         include 'giohang.php';
+                                        // return; 
                                     }
                                 }
                             } else if ($check == 2) {
-                                $thongbao = "Sản phẩm đã tồn tại trong giỏ hàng";
-                                header("location:?act=ctsp&idsp=$idsp");
-                                setcookie("thongbao", $thongbao, time() + 1);
+                                update_soluong_giohang($_SESSION['iddh_ct'], $_POST['soluong'], $_SESSION['id_bienthe']);
+                                $list_gh = loadall_giohang($idtk_kh);
+                                header("location:?act=giohang");
                             } else if ($check == 3) {
                                 $thongbao = "Số lượng sản phẩm đã hết";
                                 header("location:?act=ctsp&idsp=$idsp");
@@ -620,14 +610,66 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                             }
                         }
                     }
+                } else if (isset($_POST['muangay'])) {
+                    if (!empty($_POST['chon_size']) && !empty($_POST['chon_mau']) && !empty($_POST['idsp'])) {
+                        $id_size = $_POST['chon_size'];
+                        $id_color = $_POST['chon_mau'];
+                        $idsp = $_POST['idsp'];
+                        // check sản phẩm có trong bảng biến thể không
+                        $loadbt = loadone_bienthe($id_color, $id_size, $idsp);
+                        if ($loadbt == false) {
+                            $thongbao = "Sản phẩm chưa có biến thể này";
+                            header("location:?act=ctsp&idsp=$idsp");
+                            setcookie("thongbao", $thongbao, time() + 1);
+                        } else {
+                            $check = 1;
+                            if ($loadbt['soluong'] == 0) {
+                                $check = 2;
+                            } else  if ($loadbt['soluong'] < $_POST['soluong']) {
+                                $check = 3;
+                            } else if ($_POST['soluong'] <= 0) {
+                                $check = 4;
+                            }
+
+                            // xử lý thông báo
+                            if ($check == 1) {
+                                $_SESSION['soluong'] = $_POST['soluong'];
+                                $_SESSION['sp_tt'] = $loadbt['id_bienthe'];
+                                $thanhtoan_sp_tt = loadone_bt_tt($_SESSION['sp_tt']);
+                                array_push($thanhtoan_sp_tt, $_SESSION['soluong']);
+
+                                $load_mgg = loadall_mgg_user($idtk_kh);
+                                // header("location: ?act=thanhtoan_sp_tt");
+                                include "thanhtoan_sp_tt.php";
+                            } else if ($check == 2) {
+                                $thongbao = "Số lượng tồn kho đã hết";
+                                header("location:?act=ctsp&idsp=$idsp");
+                                setcookie("thongbao", $thongbao, time() + 1);
+                            } else if ($check == 3) {
+                                $thongbao = "Số lượng bạn chọn vượt quá số lượng tồn kho";
+                                header("location:?act=ctsp&idsp=$idsp");
+                                setcookie("thongbao", $thongbao, time() + 1);
+                            } else if ($check == 4) {
+                                $thongbao = "Vui lòng chọn số lượng lớn hơn 0";
+                                header("location:?act=ctsp&idsp=$idsp");
+                                setcookie("thongbao", $thongbao, time() + 1);
+                            }
+                        }
+                    } else {
+                        $thongbao = "Vui lòng chọn thông tin giày";
+                        header("location:?act=ctsp&idsp=$idsp");
+                        setcookie("thongbao", $thongbao, time() + 1);
+                    }
+                } else {
+                    $list_gh =  loadall_giohang($idtk_kh);
+                    include 'giohang.php';
                 }
             } else {
                 $thongbao = "Vui lòng đăng nhập để mua hàng";
                 header("location:?act=ctsp&idsp=$idsp");
                 setcookie("thongbao", $thongbao, time() + 1);
             }
-            $list_gh =  loadall_giohang($idtk_kh);
-            include 'giohang.php';
+
             break;
 
         case 'xoagh':
@@ -652,7 +694,7 @@ if (isset($_GET['act']) && ($_GET['act'])) {
                     // include 'spyt.php';
                 } else {
                     $thongbao = "Vui lòng đăng nhập";
-                    $listsanpham = loadall_product($kyw = "", $iddm = "", $sapxep = "", $price_max = "", $price_min = "", $stars = "");
+                    $listsanpham = loadall_product($kyw = "", $iddm = "", $sapxep = "", $price_max = "", $price_min = "", $stars = "", $id_color = "", $id_size = "");
                     header("location: ?act=sanpham");
                     setcookie("thongbao", $thongbao, time() + 1);
                 }

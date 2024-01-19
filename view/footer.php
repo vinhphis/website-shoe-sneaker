@@ -40,13 +40,9 @@
 
   </footer>
   </body>
-  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/fontawesome.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="owlcarousel/owl.carousel.min.js"></script>
-  <script src="main/style.js"></script>
+  <script src="JavaScript/main.js"></script>
 
   </html>

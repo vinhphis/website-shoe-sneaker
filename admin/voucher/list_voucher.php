@@ -14,9 +14,10 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
-                        <th>MÃ GIẢM GIÁ</th>
+                        <!-- <th>MÃ GIẢM GIÁ</th> -->
                         <th>TÊN MÃ GIẢM GIÁ</th>
                         <th>CHIẾT KHẤU</th>
+                        <th>SỐ LƯỢNG</th>
                         <th>LOẠI</th>
                         <th>TRẠNG THÁI</th>
                         <th>THAO TÁC</th>
@@ -35,9 +36,10 @@
                         }
                     ?>
                         <tr>
-                            <td><?= $idmgg ?></td>
+                            <!-- <td><?= $idmgg ?></td> -->
                             <td><?= $name_mgg ?></td>
                             <td><?= $discount ?></td>
+                            <td><?= $soluong ?></td>
                             <td><?= $category ?></td>
                             <td><?= $view ?></td>
                             <td>

@@ -10,7 +10,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
 
-                        <th>MÃ TÀI KHOẢN</th>
+                        <!-- <th>MÃ TÀI KHOẢN</th> -->
                         <th>HỌ VÀ TÊN</th>
                         <th>TÊN ĐĂNG NHÂP</th>
                         <th>MẬT KHẨU</th>
@@ -36,7 +36,7 @@
                         }
                     ?>
                         <tr>
-                            <td><?= $idtk_kh ?></td>
+                            <!-- <td><?= $idtk_kh ?></td> -->
                             <td><?= $namekh ?></td>
                             <td><?= $user ?></td>
                             <td><?= $password ?></td>
