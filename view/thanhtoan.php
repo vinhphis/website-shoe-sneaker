@@ -15,7 +15,6 @@
             <?php
             if (isset($_SESSION['userkh'])) :
                 extract($_SESSION['userkh']);
-
             ?>
                 <div class="form-left">
                     <input class="input" type="email" name="email" value="<?= $email ?>" placeholder="Nhập email">

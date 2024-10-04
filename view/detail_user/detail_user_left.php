@@ -3,13 +3,13 @@
         <nav>
             <ul>
                 <h3>Trang Tài Khoản</h3>
-                <?php
-                if (isset($_SESSION['userkh'])) {
-                    extract($_SESSION['userkh']);
-                ?>
-                    <p>Xin chào, <span class="text_color_red"><?= $namekh ?></span></p>
-                <?php  }
-                ?>
+                <p>Xin chào,
+                    <span class="text_color_red">
+                        <?php
+                        extract($_SESSION['userkh']);
+                        echo $namekh ?>
+                    </span>
+                </p>
                 <li><a href="controller.php?act=detail_user">Thông tin khách hàng</a></li>
                 <li><a href="controller.php?act=dmk_user">Đổi mật khẩu</a></li>
                 <li><a href="controller.php?act=lsmh_user">Lịch sử mua hàng</a></li>
@@ -22,6 +22,12 @@
                 }
                 ?>
                 <li><a href="controller.php?act=dangxuat_user">Đăng xuất</a></li>
+
+
+                <li>
+                    <i class="fa-solid fa-crown"></i>
+                    <a href="#">Hạng Chiến Tướng</a>
+                </li>
             </ul>
         </nav>
     </aside>

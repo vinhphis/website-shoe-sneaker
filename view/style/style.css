@@ -783,7 +783,22 @@ a {
 .detail_user_left nav ul li {
     margin: 20px 0px;
 }
-
+.detail_user_left nav ul li:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    margin: 50px 0px;
+    height: 30px;
+    border: 1px solid #000000;
+    padding: 5px;
+    /* background-color: gainsboro; */
+}
+.detail_user_left nav ul li:last-child a {
+    font-weight: bold;
+    margin-left: 5px;
+    color: rgb(12, 12, 12);
+}
 .detail_user_right {
     /* padding-top: 30px; */
     padding-left: 30px;

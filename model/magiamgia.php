@@ -55,12 +55,7 @@ function update_soluong_voucher($idmgg)
     WHERE idmgg = $idmgg ";
     pdo_execute($sql);
 }
-// function load_soluong_voucher($idmgg)
-// {
-//     $sql = "SELECT `soluong` FROM `voucher` WHERE idmgg = $idmgg";
-//     $voucher =   pdo_query_one($sql);
-//     return $voucher;
-// }
+
 // bảng liên kết voucher với tk khách hàng
 function loadall_mgg_user($idtk_kh)
 {
